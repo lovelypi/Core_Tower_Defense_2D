@@ -5458,7 +5458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe8b5c7b0c2ee4429ee021011206003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curWaveID: 0
   spawnersTrf: {fileID: 1831909747}
   pathWaysTrf: {fileID: 1118870122}
   levelData: {fileID: 11400000, guid: 9560b618104e9954d9e2a017c9891d06, type: 2}
@@ -10133,6 +10132,14 @@ PrefabInstance:
     - target: {fileID: 1853194754238965551, guid: 4ef32c59fb245d04781d2e64bf95f109, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853194754238965551, guid: 4ef32c59fb245d04781d2e64bf95f109, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853194754238965551, guid: 4ef32c59fb245d04781d2e64bf95f109, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1853194754238965551, guid: 4ef32c59fb245d04781d2e64bf95f109, type: 3}
       propertyPath: m_LocalPosition.x

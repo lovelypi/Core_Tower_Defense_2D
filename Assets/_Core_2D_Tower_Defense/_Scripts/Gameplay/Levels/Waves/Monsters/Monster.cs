@@ -53,6 +53,11 @@ public class Monster : MonoBehaviour
 
     private void TakeDamage(float amount)
     {
-        
+        curHP -= amount;
+
+        if (curHP <= 0f)
+        {
+            // Enermy Die
+        }
     }
 }
