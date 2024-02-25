@@ -50,4 +50,9 @@ public class Monster : MonoBehaviour
         Vector2 direction = ((Vector3)target - transform.position).normalized;
         rb.velocity = direction * monsterData.speed;
     }
+
+    private void TakeDamage(float amount)
+    {
+        
+    }
 }

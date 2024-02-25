@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public Transform wavesTrf;
     public Transform spawnersTrf;
     public Transform pathWaysTrf;
 
@@ -57,7 +56,7 @@ public class LevelManager : Singleton<LevelManager>
         for (int i = 0; i < levelData.wavesData.Count; i++)
         {
             CreateWave(i);
-            yield return new WaitForSeconds(levelData.timeBetweenWaves);
+            yield return new WaitForSeconds(levelData.timeBetweenWaves + listWaves[i].listMonstersData.Count * listWaves[i].spawnCooldown);
         }
     }
 
