@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventDispatcher : MonoBehaviour
+public class EventDispatcher : Singleton<EventDispatcher>
 {
     // Dictionary lưu trữ các sự kiện xảy ra trong game, key là EventID, value là 1 Action
     private Dictionary<EventID, Action<object>> gameEventsManager = new Dictionary<EventID, Action<object>>();

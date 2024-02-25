@@ -1,52 +1,53 @@
-using System;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    #region Components
-
+    public Wave wave;
     [SerializeField] private MonsterData monsterData;
     private Rigidbody2D rb;
+    private float curHP;
 
-    #endregion
+    public Vector2 target;
+    public int pathIndex = 0;
+    public int IDInWave;
 
-    #region Specific Data
-
-    [SerializeField] private float monsterID;
-    [SerializeField] private float curHP;
-
-    #endregion
-
-    private Transform target;
-    private int pathIndex = 0;
+    public void InitMonster(MonsterData data)
+    {
+        monsterData = data;
+        curHP = data.maxHP;
+    }
 
     private void Awake()
     {
-        curHP = monsterData.maxHP;
-        target = LevelManager.Instance.pathway[pathIndex];
         rb = GetComponent<Rigidbody2D>();
+        InitMonster(monsterData);
+    }
+
+    private void Start()
+    {
+        target = wave.pathway.wayPoints[0];
     }
 
     private void Update()
     {
-        if (Vector2.Distance(target.position, transform.position) <= 0.1f)
+        if (Vector2.Distance(target, transform.position) <= 0.1f)
         {
             pathIndex++;
-            
-            if (pathIndex >= LevelManager.Instance.pathway.Length)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                target = LevelManager.Instance.pathway[pathIndex];
-            }
+        }
+
+        if (pathIndex == wave.pathway.wayPoints.Count)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            target = wave.pathway.wayPoints[pathIndex];
         }
     }
 
     private void FixedUpdate()
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        Vector2 direction = ((Vector3)target - transform.position).normalized;
         rb.velocity = direction * monsterData.speed;
     }
 }

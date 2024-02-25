@@ -12,3 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d45bf03ad9a074cb198ce080d20f00, type: 3}
   m_Name: Data_Level 1
   m_EditorClassIdentifier: 
+  layoutData:
+    spawnerPrefab: {fileID: 6541534476555046082, guid: 504ea4f9ae029f848a1ad68d0bce216d, type: 3}
+    pathwayPrefab: {fileID: 7065869497777380688, guid: 27a0e0fa125842047837123cd4fc1248, type: 3}
+    wavePrefab: {fileID: 6855219708369601513, guid: 7f64b5158b4ee1744b65a54ecdc0c87b, type: 3}
+    spawnersData:
+    - spawnerID: 0
+      position: {x: 0, y: 7}
+    pathwaysData:
+    - pathwayID: 0
+      startPoint: {x: 0, y: 7}
+      waypoints:
+      - {x: 0, y: 3}
+      - {x: -4, y: 3}
+      - {x: -4, y: 4}
+      - {x: -7, y: 4}
+      - {x: -7, y: -4}
+      - {x: -4, y: -4}
+      - {x: -4, y: 0}
+      - {x: -1, y: 0}
+      - {x: -1, y: -4}
+      - {x: 8, y: -4}
+      - {x: 8, y: 0}
+      - {x: 2, y: 0}
+      - {x: 2, y: 3}
+      - {x: 11, y: 3}
+  wavesData:
+  - spawnerID: 0
+    pathwayID: 0
+    listMonstersID: 00000000000000000000000000000000000000000000000000000000000000000100000002000000
+    spawnCooldown: 0.5
+  - spawnerID: 0
+    pathwayID: 0
+    listMonstersID: 00000000000000000100000001000000010000000100000001000000020000000200000002000000
+    spawnCooldown: 0.5
+  timeBetweenWaves: 5
