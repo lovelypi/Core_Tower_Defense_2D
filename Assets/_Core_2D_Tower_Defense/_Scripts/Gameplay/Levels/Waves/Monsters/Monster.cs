@@ -5,8 +5,9 @@ public class Monster : MonoBehaviour
     public Wave wave;
     [SerializeField] private MonsterData monsterData;
     private Rigidbody2D rb;
-    private float curHP;
+    [SerializeField] private float curHP;
 
+    public HealthBar healthBar;
     public Vector2 target;
     public int pathIndex = 0;
     public int IDInWave;
@@ -15,12 +16,9 @@ public class Monster : MonoBehaviour
     {
         monsterData = data;
         curHP = data.maxHP;
-    }
-
-    private void Awake()
-    {
         rb = GetComponent<Rigidbody2D>();
-        InitMonster(monsterData);
+        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar.SetMaxHP(data.maxHP);
     }
 
     private void Start()
@@ -51,13 +49,16 @@ public class Monster : MonoBehaviour
         rb.velocity = direction * monsterData.speed;
     }
 
-    private void TakeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         curHP -= amount;
-
+        
         if (curHP <= 0f)
         {
-            // Enermy Die
+            wave.listMonsters.Remove(this);
+            Destroy(gameObject);
         }
+        
+        healthBar.SetHP(curHP);
     }
 }

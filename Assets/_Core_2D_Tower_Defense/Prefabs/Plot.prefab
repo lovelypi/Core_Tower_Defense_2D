@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1853194754238965551}
   - component: {fileID: 1853194754238965549}
   - component: {fileID: 1853194754238965550}
+  - component: {fileID: -8917545450299000914}
   m_Layer: 0
   m_Name: Plot
   m_TagString: Untagged
@@ -109,3 +110,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-8917545450299000914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853194754238965544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d1c662206dbfe4abd941e876440562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+  selectedColor: {r: 0.5373478, g: 1, b: 0, a: 0.5019608}

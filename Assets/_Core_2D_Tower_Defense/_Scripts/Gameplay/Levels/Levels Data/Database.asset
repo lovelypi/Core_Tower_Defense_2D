@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d372d1da7e70be43956639eff10165f, type: 3}
+  m_Name: Database
+  m_EditorClassIdentifier: 
+  listMonstersData:
+  - monsterName: Yellow
+    monsterID: 0
+    monsterPrefab: {fileID: 7916559463319918288, guid: 287244d71fd3ad04495e9391a62e20be, type: 3}
+    maxHP: 2
+    speed: 4
+  - monsterName: Blue
+    monsterID: 1
+    monsterPrefab: {fileID: 7916559463319918288, guid: 44d250794dd3ef24191f2fe93d9f3af3, type: 3}
+    maxHP: 6
+    speed: 3
+  - monsterName: Red
+    monsterID: 2
+    monsterPrefab: {fileID: 7916559463319918288, guid: 26b9c351421d4c440ba2e448ff4666a1, type: 3}
+    maxHP: 10
+    speed: 2
+  turretPrefab: {fileID: 9079859222977076548, guid: a289ddc2ca9fd6341ac962236391b701, type: 3}
+  ListTurretsData:
+  - turretName: Machine Gun
+    turretID: 0
+    canAirShoot: 0
+    listSpecifications:
+    - name: Level 1
+      damage: 0.5
+      caseSprite: {fileID: 21300000, guid: 30158ef3e42c80f47b6c486c2f86b1c7, type: 3}
+      turretSprite: {fileID: 21300000, guid: 86a72c9ad504ce44c87f61fb21cc6e41, type: 3}
+      bulletPrefab: {fileID: 7539752829496010549, guid: 053227f83017ec242b5870dc24f5fba6, type: 3}
+      cooldown: 0.2
+      shootingRange: 2
+    - name: Level 2
+      damage: 1.25
+      caseSprite: {fileID: 21300000, guid: 30158ef3e42c80f47b6c486c2f86b1c7, type: 3}
+      turretSprite: {fileID: 21300000, guid: acce444ae6048da43b2b5e889d30a19b, type: 3}
+      bulletPrefab: {fileID: 8995777327392635246, guid: 157903eadfd586649b2a4335813ed32f, type: 3}
+      cooldown: 0.2
+      shootingRange: 2.5
+  - turretName: Canon
+    turretID: 1
+    canAirShoot: 0
+    listSpecifications:
+    - name: Level 1
+      damage: 4
+      caseSprite: {fileID: 21300000, guid: 58497f9710ca6a3408245101ecfea049, type: 3}
+      turretSprite: {fileID: 21300000, guid: 1cc2e026bdd9041418e8e8af93c4e131, type: 3}
+      bulletPrefab: {fileID: 8903794486156123322, guid: 1b42ba8070ea77449a5cf8fc78a2b373, type: 3}
+      cooldown: 1.5
+      shootingRange: 3
+    - name: Level 2
+      damage: 7
+      caseSprite: {fileID: 21300000, guid: 58497f9710ca6a3408245101ecfea049, type: 3}
+      turretSprite: {fileID: 21300000, guid: 1a459594038581b4793311bcb0ef8b97, type: 3}
+      bulletPrefab: {fileID: 2466429117319757173, guid: 9d66df2b26888404aaf7d37976ce3208, type: 3}
+      cooldown: 1.25
+      shootingRange: 3.5
+  - turretName: Rocket
+    turretID: 2
+    canAirShoot: 1
+    listSpecifications:
+    - name: Level 1
+      damage: 4
+      caseSprite: {fileID: 21300000, guid: 07c26c6e828e10e4db1e291f793880a5, type: 3}
+      turretSprite: {fileID: 21300000, guid: d1d4865c651ec2f4f82c7b6b4dd0eca8, type: 3}
+      bulletPrefab: {fileID: 5605414666999734944, guid: 4e71e3be00f220d45bd3707efe568e7b, type: 3}
+      cooldown: 3
+      shootingRange: 6
+    - name: Level 2
+      damage: 7
+      caseSprite: {fileID: 21300000, guid: 07c26c6e828e10e4db1e291f793880a5, type: 3}
+      turretSprite: {fileID: 21300000, guid: 78cf8961efd63564a8cf20983e34f50a, type: 3}
+      bulletPrefab: {fileID: 1000269167499406923, guid: afa50b6d7aeb8b644b9003d4761b3957, type: 3}
+      cooldown: 7
+      shootingRange: 8

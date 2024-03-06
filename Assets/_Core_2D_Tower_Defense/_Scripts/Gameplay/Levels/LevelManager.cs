@@ -8,7 +8,7 @@ public class LevelManager : Singleton<LevelManager>
     public Transform pathWaysTrf;
 
     public LevelData levelData;
-    public MonstersDatabase monstersDatabase;
+    public Database database;
 
     public List<Wave> listWaves = new List<Wave>();
     public List<Spawner> listSpawners = new List<Spawner>();

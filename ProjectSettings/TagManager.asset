@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enermy
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enermy
   - 
   - 
   - 
@@ -40,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Turret Base
+    uniqueID: 923374083
+    locked: 0
+  - name: Turret
+    uniqueID: 3770399159
     locked: 0
