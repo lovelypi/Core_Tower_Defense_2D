@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class LevelManager : Singleton<LevelManager>
     public List<Spawner> listSpawners = new List<Spawner>();
     public List<Pathway> listPathways = new List<Pathway>();
 
+    [SerializeField] private int nextWaveID = 0;
+
     protected override void Awake()
     {
         base.Awake();
@@ -21,10 +24,15 @@ public class LevelManager : Singleton<LevelManager>
         InitLevel();
     }
 
+    private void OnEnable()
+    {
+        EventDispatcher.Instance.RegisterListener(EventID.Spawn_Next_Wave, OnCreateNextWave);
+    }
+
     public void InitLevel()
     {
         CreateSpawnersAndPathWays();
-        CreateWaves();
+        StartCoroutine(UIManager.Instance.ShowWaveName(0));
     }
 
     public void CreateSpawnersAndPathWays()
@@ -56,6 +64,7 @@ public class LevelManager : Singleton<LevelManager>
         for (int i = 0; i < levelData.wavesData.Count; i++)
         {
             CreateWave(i);
+            nextWaveID++;
             yield return new WaitForSeconds(levelData.timeBetweenWaves + listWaves[i].listMonstersData.Count * listWaves[i].spawnCooldown);
         }
     }
@@ -64,7 +73,30 @@ public class LevelManager : Singleton<LevelManager>
     {
         var wave = Instantiate(levelData.layoutData.wavePrefab);
         wave.waveID = waveID;
+        wave.name = "Wave " + (waveID + 1);
         wave.InitWave(levelData.wavesData[waveID]);
+        listWaves.Add(wave);
+    }
+
+
+    public void OnCreateNextWave(object obj)
+    {
+        nextWaveID++;
+        StartCoroutine(UIManager.Instance.ShowWaveName(nextWaveID));
+    }
+
+    public void CreateNextWave()
+    {
+        if (nextWaveID >= levelData.wavesData.Count)
+        {
+            Debug.Log("Hết Wave mất rồi :v");
+            return;
+        }
+
+        var wave = Instantiate(levelData.layoutData.wavePrefab);
+        wave.waveID = nextWaveID;
+        wave.name = "Wave " + (nextWaveID + 1);
+        wave.InitWave(levelData.wavesData[nextWaveID]);
         listWaves.Add(wave);
     }
 }

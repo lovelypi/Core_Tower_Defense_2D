@@ -31,6 +31,18 @@ public class EventDispatcher : Singleton<EventDispatcher>
         {
             Debug.Log("Event has no Listener");
         }
+        
+        var callbacks = gameEventsManager[eventID];
+        // if there's no listener remain, then do nothing
+        if (callbacks != null)
+        {
+            callbacks(eventID);
+        }
+        else
+        {
+            Debug.Log("PostEvent " + eventID + "but no listener remain, Remove this key");
+            gameEventsManager.Remove(eventID);
+        }
     }
 
     // Huỷ đăng ký sự kiện
@@ -53,5 +65,10 @@ public class EventDispatcher : Singleton<EventDispatcher>
     {
         // Xoá hết sự kiện trong Dictionary
         gameEventsManager.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        RemoveAllListeners();
     }
 }

@@ -56,6 +56,7 @@ public class Monster : MonoBehaviour
         if (curHP <= 0f)
         {
             wave.listMonsters.Remove(this);
+            wave.CheckIfAllEnermyDead();
             Destroy(gameObject);
         }
         

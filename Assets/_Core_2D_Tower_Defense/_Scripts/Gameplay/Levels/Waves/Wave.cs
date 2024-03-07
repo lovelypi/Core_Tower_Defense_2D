@@ -62,4 +62,14 @@ public class Wave : MonoBehaviour
         listMonsters.Add(enermy);
         enermy.transform.SetParent(transform);
     }
+
+    public void CheckIfAllEnermyDead()
+    {
+        if (listMonsters.Count == 0)
+        {
+            EventDispatcher.Instance.PostEvent(EventID.Spawn_Next_Wave);
+            LevelManager.Instance.listWaves.Remove(this);
+            Destroy(gameObject);
+        }
+    }
 }

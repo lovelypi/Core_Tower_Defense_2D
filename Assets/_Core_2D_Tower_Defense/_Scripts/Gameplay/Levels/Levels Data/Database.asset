@@ -21,13 +21,13 @@ MonoBehaviour:
   - monsterName: Blue
     monsterID: 1
     monsterPrefab: {fileID: 7916559463319918288, guid: 44d250794dd3ef24191f2fe93d9f3af3, type: 3}
-    maxHP: 6
+    maxHP: 5
     speed: 3
   - monsterName: Red
     monsterID: 2
     monsterPrefab: {fileID: 7916559463319918288, guid: 26b9c351421d4c440ba2e448ff4666a1, type: 3}
     maxHP: 10
-    speed: 2
+    speed: 2.5
   turretPrefab: {fileID: 9079859222977076548, guid: a289ddc2ca9fd6341ac962236391b701, type: 3}
   ListTurretsData:
   - turretName: Machine Gun
