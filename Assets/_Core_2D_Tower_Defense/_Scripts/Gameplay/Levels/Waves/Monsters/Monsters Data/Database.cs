@@ -23,6 +23,7 @@ public class TurretData
 public class TurretSpecification
 {
     public string name;
+    public int spiritStoneToBuy;
     public float damage;
     public Sprite caseSprite;
     public Sprite turretSprite;
@@ -37,6 +38,8 @@ public class MonsterData
 {
     public string monsterName;
     public int monsterID;
+    public int spiritStoneAmount;
+    public int damage;
     public Monster monsterPrefab;
     public float maxHP;
     public float speed = 2f;

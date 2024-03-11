@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +68,7 @@ public class Wave : MonoBehaviour
     {
         if (listMonsters.Count == 0)
         {
-            EventDispatcher.Instance.PostEvent(EventID.Spawn_Next_Wave);
+            EventDispatcher.Instance.PostEvent(EventID.On_Spawn_Next_Wave, waveID);
             LevelManager.Instance.listWaves.Remove(this);
             Destroy(gameObject);
         }

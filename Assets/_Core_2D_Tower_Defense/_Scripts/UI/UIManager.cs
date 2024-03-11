@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI spiritStoneText;
     public TextMeshProUGUI livesLeftText;
     public TextMeshProUGUI waveNameText;
 
@@ -13,12 +15,31 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         
-        scoreText.text = "Score: " + 0;
+        spiritStoneText.text = "Spirit Stone: " + 0;
         livesLeftText.text = "Lives: " + 0;
         waveNameText.text = "Wave 1";
         waveNameText.alpha = 0f;
     }
 
+    private void OnEnable()
+    {
+        EventDispatcher.Instance.RegisterListener(EventID.On_Spirit_Stone_Change, 
+            param => UpdateSpiritStone((int) param));
+        EventDispatcher.Instance.RegisterListener(EventID.On_Lives_Change, 
+            param => UpdateLives((int) param));
+    }
+
+    public void UpdateSpiritStone(int amount)
+    {
+        spiritStoneText.text = "Spirit Stone: " + amount;
+    }
+
+    public void UpdateLives(int amount)
+    {
+        livesLeftText.text = "Lives: " + amount;
+    }
+
+    // Hiển thị tên Wave và sinh quái
     public IEnumerator ShowWaveName(int waveID)
     {
         yield return new WaitForSeconds(1f);
@@ -31,6 +52,7 @@ public class UIManager : Singleton<UIManager>
         
         yield return new WaitForSeconds(1f);
         
-        LevelManager.Instance.CreateNextWave();
+        // Sinh quái cho wave kế tiếp
+        LevelManager.Instance.CreateWave(waveID);
     }
 }

@@ -1,21 +1,40 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public Transform spawnersTrf;
-    public Transform pathWaysTrf;
-
     public LevelData levelData;
     public Database database;
+    
+    public Transform spawnersTrf;
+    public Transform pathWaysTrf;
 
     public List<Wave> listWaves = new List<Wave>();
     public List<Spawner> listSpawners = new List<Spawner>();
     public List<Pathway> listPathways = new List<Pathway>();
 
-    [SerializeField] private int nextWaveID = 0;
+    private int spiritStone = 0;
+    private int lives = 0;
+
+    public int SpiritStone
+    {
+        get => spiritStone;
+        set
+        {
+            spiritStone = value;
+            EventDispatcher.Instance.PostEvent(EventID.On_Spirit_Stone_Change, value);
+        }
+    }
+
+    public int Lives
+    {
+        get => lives;
+        set
+        {
+            lives = value;
+            EventDispatcher.Instance.PostEvent(EventID.On_Lives_Change, value);
+        }
+    }
 
     protected override void Awake()
     {
@@ -26,11 +45,18 @@ public class LevelManager : Singleton<LevelManager>
 
     private void OnEnable()
     {
-        EventDispatcher.Instance.RegisterListener(EventID.Spawn_Next_Wave, OnCreateNextWave);
+        EventDispatcher.Instance.RegisterListener(EventID.On_Spawn_Next_Wave, 
+            param => OnCreateNextWave((int) param));
+        EventDispatcher.Instance.RegisterListener(EventID.On_Monster_Killed, 
+            param => OnMonsterKilled((int) param));
+        EventDispatcher.Instance.RegisterListener(EventID.On_Monster_Escaped, 
+            param => OnMonsterEscaped((int) param));
     }
 
     public void InitLevel()
     {
+        SpiritStone = levelData.spiritStoneStart;
+        Lives = levelData.liveStart;
         CreateSpawnersAndPathWays();
         StartCoroutine(UIManager.Instance.ShowWaveName(0));
     }
@@ -54,23 +80,21 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public void CreateWaves()
+    // Bắt sự kiện tạo Wave mới
+    public void OnCreateNextWave(int waveID)
     {
-        StartCoroutine(SpawnWavesWithDelay());
+        waveID++;
+        StartCoroutine(UIManager.Instance.ShowWaveName(waveID));
     }
 
-    private IEnumerator SpawnWavesWithDelay()
-    {
-        for (int i = 0; i < levelData.wavesData.Count; i++)
-        {
-            CreateWave(i);
-            nextWaveID++;
-            yield return new WaitForSeconds(levelData.timeBetweenWaves + listWaves[i].listMonstersData.Count * listWaves[i].spawnCooldown);
-        }
-    }
-
+    // Sinh quái cho Wave 
     public void CreateWave(int waveID)
     {
+        if (waveID >= levelData.wavesData.Count)
+        {
+            Debug.Log("Hết Wave mất rồi :v");
+            return;
+        }
         var wave = Instantiate(levelData.layoutData.wavePrefab);
         wave.waveID = waveID;
         wave.name = "Wave " + (waveID + 1);
@@ -78,25 +102,18 @@ public class LevelManager : Singleton<LevelManager>
         listWaves.Add(wave);
     }
 
-
-    public void OnCreateNextWave(object obj)
+    private void OnMonsterKilled(int spiritStoneGet)
     {
-        nextWaveID++;
-        StartCoroutine(UIManager.Instance.ShowWaveName(nextWaveID));
+        SpiritStone += spiritStoneGet;
     }
 
-    public void CreateNextWave()
+    private void OnMonsterEscaped(int livesAmount)
     {
-        if (nextWaveID >= levelData.wavesData.Count)
+        Lives -= livesAmount;
+        if (Lives <= 0)
         {
-            Debug.Log("Hết Wave mất rồi :v");
-            return;
+            Lives = 0;
+            Debug.Log("Lost Game");
         }
-
-        var wave = Instantiate(levelData.layoutData.wavePrefab);
-        wave.waveID = nextWaveID;
-        wave.name = "Wave " + (nextWaveID + 1);
-        wave.InitWave(levelData.wavesData[nextWaveID]);
-        listWaves.Add(wave);
     }
 }

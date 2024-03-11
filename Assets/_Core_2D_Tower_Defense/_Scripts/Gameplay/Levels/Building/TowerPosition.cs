@@ -31,7 +31,28 @@ public class TowerPosition : MonoBehaviour
         {
             return;
         }
+        
+        CheckIfCanBuyTower();
+    }
 
+    // Kiểm tra xem còn đủ đá linh lực không 
+    private void CheckIfCanBuyTower()
+    {
+        if (LevelManager.Instance.SpiritStone >=
+            LevelManager.Instance.database.ListTurretsData[towerID].listSpecifications[towerID].spiritStoneToBuy)
+        {
+            LevelManager.Instance.SpiritStone -=
+                LevelManager.Instance.database.ListTurretsData[towerID].listSpecifications[towerID].spiritStoneToBuy;
+            CreateTower();
+        }
+        else
+        {
+            Debug.Log("Not Enough Money To Buy This Tower");
+        }
+    }
+
+    private void CreateTower()
+    {
         var towerToBuild = TowerBuildManager.Instance.GetSelectedTower();
         tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
         tower.transform.SetParent(transform);

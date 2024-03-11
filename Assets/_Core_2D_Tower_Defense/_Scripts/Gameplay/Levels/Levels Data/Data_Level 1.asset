@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d45bf03ad9a074cb198ce080d20f00, type: 3}
   m_Name: Data_Level 1
   m_EditorClassIdentifier: 
+  spiritStoneStart: 10
+  liveStart: 10
   layoutData:
     spawnerPrefab: {fileID: 6541534476555046082, guid: 504ea4f9ae029f848a1ad68d0bce216d, type: 3}
     pathwayPrefab: {fileID: 7065869497777380688, guid: 27a0e0fa125842047837123cd4fc1248, type: 3}

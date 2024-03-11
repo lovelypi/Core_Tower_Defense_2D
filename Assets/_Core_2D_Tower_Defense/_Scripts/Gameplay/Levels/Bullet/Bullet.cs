@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private Transform target;
-    public float speed = 10f;
+    public float speed = 15f;
     public float damage;
 
     private void OnEnable()

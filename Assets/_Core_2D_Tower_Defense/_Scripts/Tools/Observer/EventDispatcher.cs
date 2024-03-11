@@ -2,9 +2,50 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventDispatcher : Singleton<EventDispatcher>
+public class EventDispatcher : MonoBehaviour
 {
-    // Dictionary lưu trữ các sự kiện xảy ra trong game, key là EventID, value là 1 Action
+    private static EventDispatcher instance;
+
+    public static EventDispatcher Instance
+    {
+        get
+        {
+            // Nếu chưa có EventDispatcher trên Scene thì tạo 1 cái mới và AddComponent
+            if (instance == null)
+            {
+                GameObject singletonObject = new GameObject();
+                instance = singletonObject.AddComponent<EventDispatcher>();
+                singletonObject.name = "EventDispatcher (Singleton)";
+            }
+
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        // Nếu trên Scene có 1 GameObject khác cũng tên là EventDispatcher (Singleton) mà khác InstanceID thì huỷ
+        // cái đó đi chỉ giữ lại 1 thể hiện thôi, còn trùng ID thì gán thành instance
+        if (instance != null && instance.GetInstanceID() != this.GetInstanceID())
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            RemoveAllListeners();
+            instance = null;
+        }
+    }
+
+    // Dictionary lưu trữ các sự kiện xảy ra trong game, key là EventID, value là Action<object>
     private Dictionary<EventID, Action<object>> gameEventsManager = new Dictionary<EventID, Action<object>>();
 
     // Đăng ký lắng nghe sự kiện
@@ -24,19 +65,21 @@ public class EventDispatcher : Singleton<EventDispatcher>
     }
 
     // Bắn sự kiện cho những object đăng ký lắng nghe sự kiện
-    public void PostEvent(EventID eventID)
+    public void PostEvent(EventID eventID, object param = null)
     {
         // Nếu trong Dictionary không có id truyền vào thì thông báo không có object nào lắng nghe sự kiện
         if (!gameEventsManager.ContainsKey(eventID))
         {
             Debug.Log("Event has no Listener");
+            return;
         }
-        
+
         var callbacks = gameEventsManager[eventID];
-        // if there's no listener remain, then do nothing
+
+        // Nếu không có hàm nào bắt sự kiện thì thôi
         if (callbacks != null)
         {
-            callbacks(eventID);
+            callbacks(param);
         }
         else
         {
@@ -66,9 +109,30 @@ public class EventDispatcher : Singleton<EventDispatcher>
         // Xoá hết sự kiện trong Dictionary
         gameEventsManager.Clear();
     }
+}
 
-    private void OnDestroy()
+#region Extension class
+
+// Khai báo một số “phím tắt” để sử dụng EventDispatcher dễ dàng hơn
+public static class EventDispatcherExtension
+{
+    // Đăng ký lắng nghe sự kiện
+    public static void RegisterListener(this MonoBehaviour listener, EventID eventID, Action<object> callback)
     {
-        RemoveAllListeners();
+        EventDispatcher.Instance.RegisterListener(eventID, callback);
+    }
+
+    // Bắn sự kiện cho những object đăng ký lắng nghe sự kiện không truyền tham số 
+    public static void PostEvent(this MonoBehaviour sender, EventID eventID)
+    {
+        EventDispatcher.Instance.PostEvent(eventID);
+    }
+
+    // Bắn sự kiện cho những object đăng ký lắng nghe sự kiện có truyền tham số
+    public static void PostEvent(this MonoBehaviour listener, EventID eventID, object param)
+    {
+        EventDispatcher.Instance.PostEvent(eventID, param);
     }
 }
+
+#endregion

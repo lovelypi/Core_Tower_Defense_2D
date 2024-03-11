@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data_Level ", menuName = "Data/Level Data")]
 public class LevelData : ScriptableObject
 {
+    public int spiritStoneStart;
+    public int liveStart;
     public LevelLayoutData layoutData;
     public List<WaveData> wavesData;
     public float timeBetweenWaves;
