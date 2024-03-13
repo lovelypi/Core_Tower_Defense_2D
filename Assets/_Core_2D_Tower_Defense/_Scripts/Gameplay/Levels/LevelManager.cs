@@ -57,6 +57,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         SpiritStone = levelData.spiritStoneStart;
         Lives = levelData.liveStart;
+        TowerBuildManager.Instance.Init();
         CreateSpawnersAndPathWays();
         StartCoroutine(UIManager.Instance.ShowWaveName(0));
     }

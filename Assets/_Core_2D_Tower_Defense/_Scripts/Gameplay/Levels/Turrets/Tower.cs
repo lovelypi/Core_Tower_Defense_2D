@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     public TowerPosition towerPosition;
     public int turretID;
-    [SerializeField] private TurretData turretData;
+    [SerializeField] private TowerData towerData;
     public SpriteRenderer caseSprite;
     public SpriteRenderer turretSprite;
     public LayerMask enermyLayer;
@@ -25,12 +25,12 @@ public class Turret : MonoBehaviour
 
     #endregion
 
-    public void InitTurret(TurretData data)
+    public void InitTower(TowerData data)
     {
         caseSprite = transform.Find("Case").GetComponent<SpriteRenderer>();
         turretSprite = transform.Find("Turret").GetComponent<SpriteRenderer>();
         firePoint = transform.Find("Fire Point");
-        turretData = data;
+        towerData = data;
         var dataTurret = data.listSpecifications[curLV];
         damage = dataTurret.damage;
         caseSprite.sprite = dataTurret.caseSprite;

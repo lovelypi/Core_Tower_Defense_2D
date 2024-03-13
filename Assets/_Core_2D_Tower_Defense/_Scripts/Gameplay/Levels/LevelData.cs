@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Data_Level ", menuName = "Data/Level Data")]
 public class LevelData : ScriptableObject
 {
     public int spiritStoneStart;
     public int liveStart;
+    public List<TowerInLevel> towersInLevel;
     public LevelLayoutData layoutData;
     public List<WaveData> wavesData;
     public float timeBetweenWaves;
@@ -44,5 +46,11 @@ public class PathwayData
     public int pathwayID;
     public Vector2 startPoint;
     public List<Vector2> waypoints;
+}
+
+[Serializable]
+public class TowerInLevel
+{
+    public List<int> towerAllowed;
 }
 

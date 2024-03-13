@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class TowerPosition : MonoBehaviour
 {
-    private GameObject tower;
-
     private SpriteRenderer sr;
-    private int towerID = 0;
+    [SerializeField] private BuildMenu buildMenu;
     [SerializeField] private Color startColor;
     [SerializeField] private Color selectedColor;
 
@@ -25,39 +23,14 @@ public class TowerPosition : MonoBehaviour
         sr.color = startColor;
     }
 
-    private void OnMouseDown()
+    public void ShowBuildMenu()
     {
-        if (tower != null)
-        {
-            return;
-        }
-        
-        CheckIfCanBuyTower();
+        buildMenu.gameObject.SetActive(true);
+        buildMenu.InitBuildMenu();
     }
 
-    // Kiểm tra xem còn đủ đá linh lực không 
-    private void CheckIfCanBuyTower()
+    public void HideBuildMenu()
     {
-        if (LevelManager.Instance.SpiritStone >=
-            LevelManager.Instance.database.ListTurretsData[towerID].listSpecifications[towerID].spiritStoneToBuy)
-        {
-            LevelManager.Instance.SpiritStone -=
-                LevelManager.Instance.database.ListTurretsData[towerID].listSpecifications[towerID].spiritStoneToBuy;
-            CreateTower();
-        }
-        else
-        {
-            Debug.Log("Not Enough Money To Buy This Tower");
-        }
-    }
-
-    private void CreateTower()
-    {
-        var towerToBuild = TowerBuildManager.Instance.GetSelectedTower();
-        tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
-        tower.transform.SetParent(transform);
-        var turret = tower.GetComponent<Turret>();
-        turret.towerPosition = this;
-        turret.InitTurret(LevelManager.Instance.database.ListTurretsData[towerID]);
+        buildMenu.HideMenu(null);
     }
 }

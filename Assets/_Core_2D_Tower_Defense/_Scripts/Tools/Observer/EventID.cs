@@ -7,4 +7,5 @@ public enum EventID
     On_Lives_Change,
     On_Monster_Killed,
     On_Monster_Escaped,
+    On_Tower_Build_Completed,
 }

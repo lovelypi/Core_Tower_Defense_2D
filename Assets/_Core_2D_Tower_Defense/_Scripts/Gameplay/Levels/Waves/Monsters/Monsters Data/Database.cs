@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Database", menuName = "Data/Database")]
 public class Database : ScriptableObject
 {
     public List<MonsterData> listMonstersData;
-    public Turret turretPrefab;
-    public List<TurretData> ListTurretsData;
+    [FormerlySerializedAs("turretPrefab")] public Tower towerPrefab;
+    public List<TowerData> listTowersData;
 }
 
 [Serializable]
-public class TurretData
+public class TowerData
 {
     public string turretName;
     public int turretID;

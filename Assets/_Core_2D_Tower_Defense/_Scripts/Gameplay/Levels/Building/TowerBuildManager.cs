@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerBuildManager : Singleton<TowerBuildManager>
 {
-    [SerializeField] private GameObject[] towerPrefabs;
-    private int selectedTowerID = 0;
+    public GameObject towerPrefab;
+    public List<TowerInLevel> towersInLevel;
 
-    public GameObject GetSelectedTower()
+    public void Init()
     {
-        return towerPrefabs[selectedTowerID];
+        towersInLevel = LevelManager.Instance.levelData.towersInLevel;
     }
 }
