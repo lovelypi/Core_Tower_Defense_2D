@@ -22,6 +22,36 @@ public class BuildChoice : MonoBehaviour
         
         buyButton.onClick.AddListener(BuyTower);
     }
+
+    private void Update()
+    {
+        if (id >= LevelManager.Instance.database.listTowersData.Count)
+        {
+            return;
+        }
+        
+        if (LevelManager.Instance.SpiritStone >= 
+            LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy)
+        {
+            HandlePlayerEnoughSpiritStone();
+        }
+        else
+        {
+            HandlePlayerNotEnoughSpiritStone();
+        }
+    }
+
+    private void HandlePlayerNotEnoughSpiritStone()
+    {
+        buyButton.interactable = false;
+        costText.color = Color.red;
+    }
+
+    private void HandlePlayerEnoughSpiritStone()
+    {
+        buyButton.interactable = true;
+        costText.color = Color.green;
+    }
     
     // Kiểm tra xem có đủ đá linh lực để mua tháp không 
     private void BuyTower()

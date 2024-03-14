@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIManager : Singleton<UIManager>
 {
     public TextMeshProUGUI spiritStoneText;
     public TextMeshProUGUI livesLeftText;
+    public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI waveNameText;
 
     protected override void Awake()
@@ -19,6 +18,7 @@ public class UIManager : Singleton<UIManager>
         livesLeftText.text = "Lives: " + 0;
         waveNameText.text = "Wave 1";
         waveNameText.alpha = 0f;
+        waveNumberText.text = "Wave 1 / " + LevelManager.Instance.levelData.wavesData.Count;
     }
 
     private void OnEnable()
@@ -45,6 +45,7 @@ public class UIManager : Singleton<UIManager>
         yield return new WaitForSeconds(1f);
         
         waveNameText.text = "Wave " + (waveID + 1);
+        waveNumberText.text = "Wave " + (waveID + 1) + " / " + LevelManager.Instance.levelData.wavesData.Count;
         waveNameText.gameObject.SetActive(true);
         waveNameText.DOFade(1f, 0.5f);
         yield return new WaitForSeconds(2f);
