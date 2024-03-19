@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class GameController : Singleton<GameController>
 {
     public TowerPosition curTowerPosition;
+    public Tower curTower;
 
     private void Update()
     {
@@ -17,31 +18,54 @@ public class GameController : Singleton<GameController>
             if (hit.collider != null)
             {
                 var towerPosition = hit.collider.GetComponent<TowerPosition>();
+                var tower = hit.collider.GetComponent<Tower>();
 
+                // Kiểm tra xem chuột có nhấn vào 1 Tower không 
+                if (tower != null)
+                {
+                    HandleTowerClick(tower);
+                    HideCurrentBuildMenu();
+                }
+
+                // Kiểm tra xem chuột có nhấn vào 1 TowerPosition không 
                 if (towerPosition != null)
                 {
                     HandleTowerPositionClick(towerPosition);
-                }
-                else
-                {
-                    HideCurrentTowerMenu();
+                    HideCurrentUpgradeMenu();
                 }
             }
             else
             {
-                HideCurrentTowerMenu();
+                HideCurrentBuildMenu();
+                HideCurrentUpgradeMenu();
             }
         }
     }
-    
+
+    private void HandleTowerClick(Tower tower)
+    {
+        HideCurrentUpgradeMenu();
+        curTower = tower;
+        tower.towerPosition.ShowUpgradeMenu();
+    }
+
     private void HandleTowerPositionClick(TowerPosition towerPosition)
     {
-        HideCurrentTowerMenu();
+        HideCurrentBuildMenu();
         curTowerPosition = towerPosition;
         towerPosition.ShowBuildMenu();
     }
 
-    private void HideCurrentTowerMenu()
+    private void HideCurrentUpgradeMenu()
+    {
+        if (curTower != null)
+        {
+            curTower.towerPosition.HideUpgradeMenu();
+            curTower = null;
+        }
+    }
+
+    private void HideCurrentBuildMenu()
     {
         if (curTowerPosition != null)
         {

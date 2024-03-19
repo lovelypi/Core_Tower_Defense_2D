@@ -14,8 +14,8 @@ public class Database : ScriptableObject
 [Serializable]
 public class TowerData
 {
-    public string turretName;
-    public int turretID;
+    public string towerName;
+    public int towerID;
     public bool canAirShoot;
     public List<TurretSpecification> listSpecifications;
 }
@@ -25,9 +25,10 @@ public class TurretSpecification
 {
     public string name;
     public int spiritStoneToBuy;
+    public int spiritStoneGetWhenSale;
     public float damage;
     public Sprite caseSprite;
-    public Sprite turretSprite;
+    public Sprite towerSprite;
     public Bullet bulletPrefab;
     public float cooldown;
     public float shootingRange;

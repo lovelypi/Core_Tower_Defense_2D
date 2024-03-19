@@ -36,63 +36,69 @@ MonoBehaviour:
     speed: 2
   towerPrefab: {fileID: 9079859222977076548, guid: a289ddc2ca9fd6341ac962236391b701, type: 3}
   listTowersData:
-  - turretName: Machine Gun
-    turretID: 0
+  - towerName: Machine Gun
+    towerID: 0
     canAirShoot: 0
     listSpecifications:
     - name: Machine Gun Lv1
       spiritStoneToBuy: 100
+      spiritStoneGetWhenSale: 75
       damage: 0.75
       caseSprite: {fileID: 21300000, guid: 30158ef3e42c80f47b6c486c2f86b1c7, type: 3}
-      turretSprite: {fileID: 21300000, guid: 86a72c9ad504ce44c87f61fb21cc6e41, type: 3}
+      towerSprite: {fileID: 21300000, guid: 86a72c9ad504ce44c87f61fb21cc6e41, type: 3}
       bulletPrefab: {fileID: 7539752829496010549, guid: 053227f83017ec242b5870dc24f5fba6, type: 3}
       cooldown: 0.15
       shootingRange: 2.5
     - name: Machine Gun Lv2
-      spiritStoneToBuy: 100
+      spiritStoneToBuy: 150
+      spiritStoneGetWhenSale: 150
       damage: 1.5
       caseSprite: {fileID: 21300000, guid: 30158ef3e42c80f47b6c486c2f86b1c7, type: 3}
-      turretSprite: {fileID: 21300000, guid: acce444ae6048da43b2b5e889d30a19b, type: 3}
+      towerSprite: {fileID: 21300000, guid: acce444ae6048da43b2b5e889d30a19b, type: 3}
       bulletPrefab: {fileID: 8995777327392635246, guid: 157903eadfd586649b2a4335813ed32f, type: 3}
       cooldown: 0.15
       shootingRange: 3
-  - turretName: Canon
-    turretID: 1
+  - towerName: Canon
+    towerID: 1
     canAirShoot: 0
     listSpecifications:
     - name: Canon Lv1
       spiritStoneToBuy: 200
+      spiritStoneGetWhenSale: 150
       damage: 4
       caseSprite: {fileID: 21300000, guid: 58497f9710ca6a3408245101ecfea049, type: 3}
-      turretSprite: {fileID: 21300000, guid: 1cc2e026bdd9041418e8e8af93c4e131, type: 3}
+      towerSprite: {fileID: 21300000, guid: 1cc2e026bdd9041418e8e8af93c4e131, type: 3}
       bulletPrefab: {fileID: 8903794486156123322, guid: 1b42ba8070ea77449a5cf8fc78a2b373, type: 3}
       cooldown: 2
       shootingRange: 4
     - name: Canon Lv2
-      spiritStoneToBuy: 200
+      spiritStoneToBuy: 250
+      spiritStoneGetWhenSale: 300
       damage: 8
       caseSprite: {fileID: 21300000, guid: 58497f9710ca6a3408245101ecfea049, type: 3}
-      turretSprite: {fileID: 21300000, guid: 1a459594038581b4793311bcb0ef8b97, type: 3}
+      towerSprite: {fileID: 21300000, guid: 1a459594038581b4793311bcb0ef8b97, type: 3}
       bulletPrefab: {fileID: 2466429117319757173, guid: 9d66df2b26888404aaf7d37976ce3208, type: 3}
       cooldown: 1.5
       shootingRange: 6
-  - turretName: Rocket
-    turretID: 2
+  - towerName: Rocket
+    towerID: 2
     canAirShoot: 0
     listSpecifications:
     - name: Mini Rocket
       spiritStoneToBuy: 300
+      spiritStoneGetWhenSale: 225
       damage: 10
       caseSprite: {fileID: 21300000, guid: 07c26c6e828e10e4db1e291f793880a5, type: 3}
-      turretSprite: {fileID: 21300000, guid: 78cf8961efd63564a8cf20983e34f50a, type: 3}
+      towerSprite: {fileID: 21300000, guid: 78cf8961efd63564a8cf20983e34f50a, type: 3}
       bulletPrefab: {fileID: 5605414666999734944, guid: 4e71e3be00f220d45bd3707efe568e7b, type: 3}
       cooldown: 3
       shootingRange: 8
     - name: Ultimate Rocket
-      spiritStoneToBuy: 300
+      spiritStoneToBuy: 400
+      spiritStoneGetWhenSale: 450
       damage: 25
       caseSprite: {fileID: 21300000, guid: 07c26c6e828e10e4db1e291f793880a5, type: 3}
-      turretSprite: {fileID: 21300000, guid: d1d4865c651ec2f4f82c7b6b4dd0eca8, type: 3}
+      towerSprite: {fileID: 21300000, guid: d1d4865c651ec2f4f82c7b6b4dd0eca8, type: 3}
       bulletPrefab: {fileID: 1000269167499406923, guid: afa50b6d7aeb8b644b9003d4761b3957, type: 3}
       cooldown: 2.5
       shootingRange: 12

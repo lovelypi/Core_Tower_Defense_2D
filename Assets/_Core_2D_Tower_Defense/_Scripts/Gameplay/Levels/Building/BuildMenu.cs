@@ -19,8 +19,8 @@ public class BuildMenu : MonoBehaviour
     public void InitBuildMenu()
     {
         OnScaleUp();
-        InitChoices();
-        LoadTowerChoice();
+        InitBuildChoices();
+        LoadBuildChoice();
     }
 
     public void HideMenu(object param)
@@ -47,7 +47,16 @@ public class BuildMenu : MonoBehaviour
         });
     }
 
-    private void LoadTowerChoice()
+    private void InitBuildChoices()
+    {
+        for (int i = 0; i < buildChoice.Length; i++)
+        {
+            buildChoice[i].id = i;
+            buildChoice[i].Init();
+        }
+    }
+
+    private void LoadBuildChoice()
     {
         var listTowers = TowerBuildManager.Instance.towersInLevel;
         for (int i = 0; i < listTowers.Count; i++)
@@ -63,15 +72,6 @@ public class BuildMenu : MonoBehaviour
                 buildChoice[i].enabledObj.SetActive(true);
                 buildChoice[i].blockedObj.SetActive(false);
             }
-        }
-    }
-
-    private void InitChoices()
-    {
-        for (int i = 0; i < buildChoice.Length; i++)
-        {
-            buildChoice[i].id = i;
-            buildChoice[i].Init();
         }
     }
 }

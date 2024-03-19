@@ -4,7 +4,6 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public TowerPosition towerPosition;
-    public int turretID;
     [SerializeField] private TowerData towerData;
     public SpriteRenderer caseSprite;
     public SpriteRenderer turretSprite;
@@ -12,7 +11,8 @@ public class Tower : MonoBehaviour
 
     [SerializeField] private Transform firePoint;
     private Transform target;
-    private int curLV = 0;
+    public int towerID;
+    public int curLevel = 0;
     private float rotateSpeed = 1000f;
     private float fireTime = 0f;
 
@@ -31,13 +31,19 @@ public class Tower : MonoBehaviour
         turretSprite = transform.Find("Turret").GetComponent<SpriteRenderer>();
         firePoint = transform.Find("Fire Point");
         towerData = data;
-        var dataTurret = data.listSpecifications[curLV];
-        damage = dataTurret.damage;
-        caseSprite.sprite = dataTurret.caseSprite;
-        turretSprite.sprite = dataTurret.turretSprite;
-        bulletPrefab = dataTurret.bulletPrefab;
-        cooldown = dataTurret.cooldown;
-        shootingRange = dataTurret.shootingRange;
+        towerID = data.towerID;
+        var specification = data.listSpecifications[curLevel];
+        LoadSpecification(specification);
+    }
+
+    public void LoadSpecification(TurretSpecification specification)
+    {
+        damage = specification.damage;
+        caseSprite.sprite = specification.caseSprite;
+        turretSprite.sprite = specification.towerSprite;
+        bulletPrefab = specification.bulletPrefab;
+        cooldown = specification.cooldown;
+        shootingRange = specification.shootingRange;
     }
 
     private void Update()

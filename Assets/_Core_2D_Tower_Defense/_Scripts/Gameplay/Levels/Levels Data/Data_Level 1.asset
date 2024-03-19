@@ -15,7 +15,7 @@ MonoBehaviour:
   spiritStoneStart: 100
   liveStart: 10
   towersInLevel:
-  - towerAllowed: 00000000
+  - towerAllowed: 0000000001000000
   - towerAllowed: 00000000
   - towerAllowed: 
   - towerAllowed: 

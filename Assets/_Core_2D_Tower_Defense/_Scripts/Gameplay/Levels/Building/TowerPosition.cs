@@ -4,6 +4,7 @@ public class TowerPosition : MonoBehaviour
 {
     private SpriteRenderer sr;
     [SerializeField] private BuildMenu buildMenu;
+    public UpgradeMenu upgradeMenu;
     [SerializeField] private Color startColor;
     [SerializeField] private Color selectedColor;
 
@@ -32,5 +33,16 @@ public class TowerPosition : MonoBehaviour
     public void HideBuildMenu()
     {
         buildMenu.HideMenu(null);
+    }
+
+    public void ShowUpgradeMenu()
+    {
+        upgradeMenu.gameObject.SetActive(true);
+        upgradeMenu.InitUpgradeMenu();
+    }
+
+    public void HideUpgradeMenu()
+    {
+        upgradeMenu.HideMenu(null);
     }
 }
