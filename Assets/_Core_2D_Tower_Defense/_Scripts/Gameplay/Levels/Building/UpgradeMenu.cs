@@ -37,6 +37,7 @@ public class UpgradeMenu : MonoBehaviour
         transform.DOScale(new Vector3(0.01f, 0.01f, 0.01f), 0.5f).OnComplete(() =>
         {
             isReady = true;
+            GameController.Instance.canClickTower = true;
         });
     }
 
@@ -46,6 +47,7 @@ public class UpgradeMenu : MonoBehaviour
         transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             gameObject.SetActive(false);
+            GameController.Instance.canClickTower = true;
         });
     }
 
@@ -59,8 +61,9 @@ public class UpgradeMenu : MonoBehaviour
     {
         var listTowers = TowerBuildManager.Instance.towersInLevel;
         
-        // Nếu số level tháp cho phép < level hiện tại thì không được phép nâng cấp, còn >= thì được nâng cấp
-        if (listTowers[tower.towerID].towerAllowed.Count < tower.curLevel)
+        // Nếu số level tháp cho phép <= level hiện tại thì không được phép nâng cấp 
+        // Nếu > thì được nâng cấp
+        if (listTowers[tower.towerID].towerAllowed.Count <= tower.curLevel)
         {
             upgradeBuildChoice.enabledObj.SetActive(false);
             upgradeBuildChoice.blockedObj.SetActive(true);

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TowerPosition : MonoBehaviour
 {
+    public Tower tower;
     private SpriteRenderer sr;
     [SerializeField] private BuildMenu buildMenu;
     public UpgradeMenu upgradeMenu;

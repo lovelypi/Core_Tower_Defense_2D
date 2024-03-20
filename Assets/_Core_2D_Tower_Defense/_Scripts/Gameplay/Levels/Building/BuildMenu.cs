@@ -35,6 +35,7 @@ public class BuildMenu : MonoBehaviour
         transform.DOScale(new Vector3(0.01f, 0.01f, 0.01f), 0.5f).OnComplete(() =>
         {
             isReady = true;
+            GameController.Instance.canClickTowerPosition = true;
         });
     }
 
@@ -44,6 +45,7 @@ public class BuildMenu : MonoBehaviour
         transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             gameObject.SetActive(false);
+            GameController.Instance.canClickTowerPosition = true;
         });
     }
 

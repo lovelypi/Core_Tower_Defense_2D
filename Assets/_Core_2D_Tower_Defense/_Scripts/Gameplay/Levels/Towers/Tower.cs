@@ -75,8 +75,8 @@ public class Tower : MonoBehaviour
     private void FindTarget()
     {
         var position = transform.position;
-        var hits = Physics2D.CircleCastAll(position, shootingRange, position, 
-            0f, enermyLayer);
+        var hits = Physics2D.CircleCastAll(position, shootingRange, 
+            position, 0f, enermyLayer);
 
         if (hits.Length > 0)
         {

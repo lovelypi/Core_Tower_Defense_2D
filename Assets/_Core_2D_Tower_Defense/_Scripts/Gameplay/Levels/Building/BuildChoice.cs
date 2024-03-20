@@ -78,7 +78,7 @@ public class BuildChoice : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not Enough Money To Buy This Tower");
+            Debug.Log("Not Enough Money To Buy This  " + name);
         }
     }
     
@@ -92,10 +92,9 @@ public class BuildChoice : MonoBehaviour
         {
             UpgradeTower(curTower);
             curTower.towerPosition.upgradeMenu.upgradeBuildChoice.curLevel++;
-            
             curTower.curLevel++;
+            GameController.Instance.curTower = null;
             EventDispatcher.Instance.PostEvent(EventID.On_Tower_Upgrade_Completed);
-            
         }
         // Xây tháp mới
         else
@@ -105,6 +104,7 @@ public class BuildChoice : MonoBehaviour
             curTowerPosition.upgradeMenu.tower = tower;
             tower.transform.SetParent(curTowerPosition.transform);
             tower.towerPosition = curTowerPosition;
+            curTowerPosition.tower = tower;
             tower.InitTower(LevelManager.Instance.database.listTowersData[id]);
             curTowerPosition.upgradeMenu.upgradeBuildChoice.curLevel++;
             tower.curLevel++;
@@ -116,6 +116,8 @@ public class BuildChoice : MonoBehaviour
 
     private void UpgradeTower(Tower tower)
     {
-        tower.LoadSpecification(LevelManager.Instance.database.listTowersData[id].listSpecifications[tower.curLevel]);
+        tower.LoadSpecification(LevelManager.Instance.database.listTowersData[id].
+            listSpecifications[tower.curLevel]);
+        
     }
 }

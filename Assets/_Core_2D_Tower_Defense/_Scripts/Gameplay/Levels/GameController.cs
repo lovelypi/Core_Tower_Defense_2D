@@ -6,6 +6,8 @@ public class GameController : Singleton<GameController>
 {
     public TowerPosition curTowerPosition;
     public Tower curTower;
+    public bool canClickTower = true;
+    public bool canClickTowerPosition = true;
 
     private void Update()
     {
@@ -20,19 +22,21 @@ public class GameController : Singleton<GameController>
                 var towerPosition = hit.collider.GetComponent<TowerPosition>();
                 var tower = hit.collider.GetComponent<Tower>();
 
-                // Kiểm tra xem chuột có nhấn vào 1 Tower không 
-                if (tower != null)
-                {
-                    HandleTowerClick(tower);
-                    HideCurrentBuildMenu();
-                }
-
-                // Kiểm tra xem chuột có nhấn vào 1 TowerPosition không 
-                if (towerPosition != null)
-                {
-                    HandleTowerPositionClick(towerPosition);
-                    HideCurrentUpgradeMenu();
-                }
+                 // Kiểm tra xem chuột có nhấn vào 1 Tower không 
+                 if (tower != null && canClickTower)
+                 {
+                     canClickTower = false;
+                     HandleTowerClick(tower);
+                     HideCurrentBuildMenu();
+                 }
+                
+                 // Kiểm tra xem chuột có nhấn vào 1 TowerPosition không 
+                 if (towerPosition != null && canClickTowerPosition)
+                 {
+                     canClickTowerPosition = false;
+                     HandleTowerPositionClick(towerPosition);
+                     HideCurrentUpgradeMenu();
+                 }
             }
             else
             {
