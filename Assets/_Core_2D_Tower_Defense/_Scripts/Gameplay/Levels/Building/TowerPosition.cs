@@ -18,6 +18,17 @@ public class TowerPosition : MonoBehaviour
     private void OnMouseEnter()
     {
         sr.color = selectedColor;
+
+        if (tower != null)
+        {
+            var collider = GetComponent<BoxCollider2D>();
+            collider.enabled = false;
+        }
+        else
+        {
+            var collider = GetComponent<BoxCollider2D>();
+            collider.enabled = true;
+        }
     }
 
     private void OnMouseExit()

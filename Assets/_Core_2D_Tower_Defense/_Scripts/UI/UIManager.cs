@@ -2,9 +2,11 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    public Button hackBtn;
     public TextMeshProUGUI spiritStoneText;
     public TextMeshProUGUI livesLeftText;
     public TextMeshProUGUI waveNumberText;
@@ -27,6 +29,10 @@ public class UIManager : Singleton<UIManager>
             param => UpdateSpiritStone((int) param));
         EventDispatcher.Instance.RegisterListener(EventID.On_Lives_Change, 
             param => UpdateLives((int) param));
+        hackBtn.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.SpiritStone += 1000;
+        });
     }
 
     public void UpdateSpiritStone(int amount)

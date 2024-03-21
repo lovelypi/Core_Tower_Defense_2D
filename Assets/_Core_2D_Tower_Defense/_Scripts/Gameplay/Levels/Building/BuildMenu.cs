@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class BuildMenu : MonoBehaviour
 {
-    public bool isReady;
     public BuildChoice[] buildChoice = new BuildChoice[5];
 
     private void OnEnable()
@@ -30,18 +29,15 @@ public class BuildMenu : MonoBehaviour
 
     public void OnScaleUp()
     {
-        transform.localScale = Vector3.zero; 
-        isReady = false;
+        transform.localScale = Vector3.zero;
         transform.DOScale(new Vector3(0.01f, 0.01f, 0.01f), 0.5f).OnComplete(() =>
         {
-            isReady = true;
             GameController.Instance.canClickTowerPosition = true;
         });
     }
 
     public void OnScaleDown()
     {
-        isReady = false;
         transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             gameObject.SetActive(false);

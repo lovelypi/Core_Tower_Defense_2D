@@ -4,24 +4,26 @@ using UnityEngine;
 public class UpgradeMenu : MonoBehaviour
 {
     public Tower tower;
-    public bool isReady;
     public BuildChoice upgradeBuildChoice;
     public SaleChoice saleChoice;
     
     private void OnEnable()
     {
         EventDispatcher.Instance.RegisterListener(EventID.On_Tower_Upgrade_Completed, HideMenu);
+        EventDispatcher.Instance.RegisterListener(EventID.On_Tower_Sale_Completed, HideMenuAndResetLevel);
     }
 
     private void OnDisable()
     {
         EventDispatcher.Instance.RemoveListener(EventID.On_Tower_Upgrade_Completed, HideMenu);
+        EventDispatcher.Instance.RemoveListener(EventID.On_Tower_Sale_Completed, HideMenuAndResetLevel);
     }
     
     public void InitUpgradeMenu()
     {
         OnScaleUp();
         InitUpgradeChoice();
+        InitSaleChoice();
         LoadUpgradeChoice();
     }
 
@@ -30,20 +32,27 @@ public class UpgradeMenu : MonoBehaviour
         OnScaleDown();
     }
 
+    public void HideMenuAndResetLevel(object param)
+    {
+        upgradeBuildChoice.curLevel = 0;
+        OnScaleDown();
+    }
+
     public void OnScaleUp()
     {
-        transform.localScale = Vector3.zero; 
-        isReady = false;
+        transform.localScale = Vector3.zero;
+        saleChoice.saleButton.interactable = false;
+        upgradeBuildChoice.buyButton.interactable = false;
         transform.DOScale(new Vector3(0.01f, 0.01f, 0.01f), 0.5f).OnComplete(() =>
         {
-            isReady = true;
+            saleChoice.saleButton.interactable = true;
+            upgradeBuildChoice.buyButton.interactable = true;
             GameController.Instance.canClickTower = true;
         });
     }
 
     public void OnScaleDown()
     {
-        isReady = false;
         transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
         {
             gameObject.SetActive(false);
@@ -55,6 +64,12 @@ public class UpgradeMenu : MonoBehaviour
     {
         upgradeBuildChoice.id = tower.towerID;
         upgradeBuildChoice.Init();
+    }
+
+    private void InitSaleChoice()
+    {
+        saleChoice.id = tower.towerID;
+        saleChoice.Init();
     }
 
     private void LoadUpgradeChoice()
