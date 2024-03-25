@@ -13,45 +13,33 @@ public class BuildChoice : MonoBehaviour
     public Image towerImage;
     public TextMeshProUGUI costText;
 
+    [SerializeField] private Tower curTower;
+    [SerializeField] private TowerPosition curTowerPosition;
+
     public void Init()
     {
-        if (id >= LevelManager.Instance.database.listTowersData.Count)
+        if (IsLegit())
         {
-            return;
+            canCreateTower = true;
+            towerImage.sprite = LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].towerSprite;
+            costText.text = LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy.ToString();
+            buyButton.onClick.AddListener(BuyTower);
         }
-
-        if (curLevel >= LevelManager.Instance.database.listTowersData[id].listSpecifications.Count)
-        {
-            return;
-        }
-
-        canCreateTower = true;
-        towerImage.sprite = LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].towerSprite;
-        costText.text = LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy.ToString();
-
-        buyButton.onClick.AddListener(BuyTower);
     }
 
     private void Update()
     {
-        if (id >= LevelManager.Instance.database.listTowersData.Count)
+        if (IsLegit())
         {
-            return;
-        }
-
-        if (curLevel >= LevelManager.Instance.database.listTowersData[id].listSpecifications.Count)
-        {
-            return;
-        }
-
-        if (LevelManager.Instance.SpiritStone >=
-            LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy)
-        {
-            HandlePlayerEnoughSpiritStone();
-        }
-        else
-        {
-            HandlePlayerNotEnoughSpiritStone();
+            if (LevelManager.Instance.SpiritStone >=
+                LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy)
+            {
+                HandlePlayerEnoughSpiritStone();
+            }
+            else
+            {
+                HandlePlayerNotEnoughSpiritStone();
+            }
         }
     }
 
@@ -70,43 +58,39 @@ public class BuildChoice : MonoBehaviour
     // Kiểm tra xem có đủ đá linh lực để mua tháp không 
     private void BuyTower()
     {
-        if (id >= LevelManager.Instance.database.listTowersData.Count)
+        if (IsLegit())
         {
-            return;
-        }
-
-        if (curLevel >= LevelManager.Instance.database.listTowersData[id].listSpecifications.Count)
-        {
-            return;
-        }
-
-        if (LevelManager.Instance.SpiritStone >= LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy)
-        {
-            CreateTower();
-        }
-        else
-        {
-            Debug.Log("Not Enough Money To Buy " + LevelManager.Instance.SpiritStone);
+            if (LevelManager.Instance.SpiritStone >= LevelManager.Instance.database.listTowersData[id].listSpecifications[curLevel].spiritStoneToBuy)
+            {
+                CreateTower();
+            }
+            else
+            {
+                Debug.Log("Not Enough Money To Buy " + LevelManager.Instance.SpiritStone);
+            }
         }
     }
 
     private void CreateTower()
     {
         buyButton.interactable = false;
-        var curTowerPosition = GameController.Instance.curTowerPosition;
-        var curTower = GameController.Instance.curTower;
+        curTowerPosition = GameController.Instance.curTowerPosition;
+        curTower = GameController.Instance.curTower;
 
         if (canCreateTower)
         {
             LevelManager.Instance.SpiritStone -= LevelManager.Instance.database.listTowersData[id].
                 listSpecifications[curLevel].spiritStoneToBuy;
             canCreateTower = false;
+            
             // Nâng cấp tháp hiện tại
             if (curTower != null)
             {
                 UpgradeTower(curTower);
                 curTower.towerPosition.upgradeMenu.upgradeBuildChoice.curLevel++;
+                curTower.towerPosition.upgradeMenu.saleChoice.curLevel++;
                 curTower.curLevel++;
+                curLevel++;
                 GameController.Instance.curTower = null;
                 EventDispatcher.Instance.PostEvent(EventID.On_Tower_Upgrade_Completed);
             }
@@ -140,5 +124,20 @@ public class BuildChoice : MonoBehaviour
     private void UpgradeTower(Tower tower)
     {
         tower.LoadSpecification(LevelManager.Instance.database.listTowersData[id].listSpecifications[tower.curLevel]);
+    }
+
+    private bool IsLegit()
+    {
+        if (id >= LevelManager.Instance.database.listTowersData.Count)
+        {
+            return false;
+        }
+
+        if (curLevel >= LevelManager.Instance.database.listTowersData[id].listSpecifications.Count)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

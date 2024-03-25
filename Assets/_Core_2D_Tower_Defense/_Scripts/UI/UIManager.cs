@@ -16,11 +16,11 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         
-        spiritStoneText.text = "Spirit Stone: " + 0;
-        livesLeftText.text = "Lives: " + 0;
+        spiritStoneText.text = "0";
+        livesLeftText.text ="0";
         waveNameText.text = "Wave 1";
         waveNameText.alpha = 0f;
-        waveNumberText.text = "Wave 1 / " + LevelManager.Instance.levelData.wavesData.Count;
+        waveNumberText.text = "1/" + LevelManager.Instance.levelData.wavesData.Count;
     }
 
     private void OnEnable()
@@ -37,12 +37,12 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateSpiritStone(int amount)
     {
-        spiritStoneText.text = "Spirit Stone: " + amount;
+        spiritStoneText.text = amount.ToString();
     }
 
     public void UpdateLives(int amount)
     {
-        livesLeftText.text = "Lives: " + amount;
+        livesLeftText.text = amount.ToString();
     }
 
     // Hiển thị tên Wave và sinh quái
@@ -51,7 +51,7 @@ public class UIManager : Singleton<UIManager>
         yield return new WaitForSeconds(1f);
         
         waveNameText.text = "Wave " + (waveID + 1);
-        waveNumberText.text = "Wave " + (waveID + 1) + " / " + LevelManager.Instance.levelData.wavesData.Count;
+        waveNumberText.text =(waveID + 1) + "/" + LevelManager.Instance.levelData.wavesData.Count;
         waveNameText.gameObject.SetActive(true);
         waveNameText.DOFade(1f, 0.5f);
         yield return new WaitForSeconds(2f);

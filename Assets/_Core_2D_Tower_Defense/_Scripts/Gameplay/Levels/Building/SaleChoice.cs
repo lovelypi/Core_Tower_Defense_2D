@@ -9,6 +9,9 @@ public class SaleChoice : MonoBehaviour
     public Button saleButton;
     public TextMeshProUGUI saleText;
     
+    [SerializeField] private Tower curTower;
+    [SerializeField] private TowerPosition curTowerPosition;
+    
     public void Init()
     {
         if (id >= LevelManager.Instance.database.listTowersData.Count)
@@ -30,14 +33,14 @@ public class SaleChoice : MonoBehaviour
     private void SaleTower()
     {
         saleButton.interactable = false;
-        var curTowerPosition = GameController.Instance.curTowerPosition;
-        var curTower = GameController.Instance.curTower;
+        curTower = GameController.Instance.curTower;
 
         if (curTower != null)
         {
-            curLevel = 0;
             LevelManager.Instance.SpiritStone += LevelManager.Instance.database.listTowersData[id].
                 listSpecifications[curLevel].spiritStoneGetWhenSale;
+            curTower.towerPosition.tower = null;
+            curTower.towerPosition.GetComponent<BoxCollider2D>().enabled = true;
             GameController.Instance.curTower = null;
             EventDispatcher.Instance.PostEvent(EventID.On_Tower_Sale_Completed);
             Destroy(curTower.gameObject);
