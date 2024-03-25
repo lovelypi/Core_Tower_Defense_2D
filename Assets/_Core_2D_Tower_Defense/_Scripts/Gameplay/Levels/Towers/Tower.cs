@@ -84,6 +84,33 @@ public class Tower : MonoBehaviour
         }
     }
 
+    // private void FindTarget2()
+    // {
+    //     Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shootingRange, enermyLayer);
+    //
+    //     if (colliders.Length > 0)
+    //     {
+    //         float minDistance = Mathf.Infinity;
+    //         Transform nearestTarget = null;
+    //
+    //         foreach (Collider2D collider in colliders)
+    //         {
+    //             float distanceToTarget = Vector2.Distance(transform.position, collider.transform.position);
+    //             if (distanceToTarget < minDistance)
+    //             {
+    //                 minDistance = distanceToTarget;
+    //                 nearestTarget = collider.transform;
+    //             }
+    //         }
+    //
+    //         target = nearestTarget;
+    //     }
+    //     else
+    //     {
+    //         target = null;
+    //     }
+    // }
+    
     private bool CheckIfTargetInShootingRange()
     {
         return Vector2.Distance(target.position, transform.position) <= shootingRange;
