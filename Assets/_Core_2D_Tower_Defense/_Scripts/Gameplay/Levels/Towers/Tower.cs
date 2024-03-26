@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -71,45 +72,46 @@ public class Tower : MonoBehaviour
 
         RotateToTarget();
     }
-
+    
     private void FindTarget()
     {
         var position = transform.position;
-        var hits = Physics2D.CircleCastAll(position, shootingRange, 
-            position, 0f, enermyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shootingRange, enermyLayer);
 
-        if (hits.Length > 0)
+        if (colliders.Length > 0)
         {
-            target = hits[0].transform;
+            List<Monster> monstersInShootingRange = new List<Monster>();
+
+            // Lọc ra tất cả các quái vật nằm trong tầm bắn
+            foreach (var collider in colliders)
+            {
+                Monster monster = collider.GetComponent<Monster>();
+                if (monster != null)
+                {
+                    monstersInShootingRange.Add(monster);
+                }
+            }
+
+            // Nếu không có quái vật nào trong tầm bắn, thoát khỏi hàm
+            if (monstersInShootingRange.Count == 0)
+            {
+                return;
+            }
+
+            // Tìm quái vật có IDInWave nhỏ nhất
+            Monster targetMonster = monstersInShootingRange[0];
+            foreach (var monster in monstersInShootingRange)
+            {
+                if (monster.IDInWave < targetMonster.IDInWave)
+                {
+                    targetMonster = monster;
+                }
+            }
+
+            // Đặt quái vật có IDInWave nhỏ nhất làm mục tiêu
+            target = targetMonster.transform;
         }
     }
-
-    // private void FindTarget2()
-    // {
-    //     Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shootingRange, enermyLayer);
-    //
-    //     if (colliders.Length > 0)
-    //     {
-    //         float minDistance = Mathf.Infinity;
-    //         Transform nearestTarget = null;
-    //
-    //         foreach (Collider2D collider in colliders)
-    //         {
-    //             float distanceToTarget = Vector2.Distance(transform.position, collider.transform.position);
-    //             if (distanceToTarget < minDistance)
-    //             {
-    //                 minDistance = distanceToTarget;
-    //                 nearestTarget = collider.transform;
-    //             }
-    //         }
-    //
-    //         target = nearestTarget;
-    //     }
-    //     else
-    //     {
-    //         target = null;
-    //     }
-    // }
     
     private bool CheckIfTargetInShootingRange()
     {
@@ -140,6 +142,6 @@ public class Tower : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.green;
-        Handles.DrawWireDisc(transform.position, transform.forward,shootingRange);
+        Handles.DrawWireDisc(transform.position, transform.forward, shootingRange);
     }
 }

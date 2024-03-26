@@ -8,6 +8,8 @@ public class GameController : Singleton<GameController>
     public Tower curTower;
     public bool canClickTower = true;
     public bool canClickTowerPosition = true;
+    
+    public AttackRangeIndicator rangeIndicator;
 
     private void Update()
     {
@@ -51,6 +53,9 @@ public class GameController : Singleton<GameController>
         HideCurrentUpgradeMenu();
         curTower = tower;
         tower.towerPosition.ShowUpgradeMenu();
+        
+        // Hiển thị tầm đánh của tháp
+        rangeIndicator.ShowRangeIndicator(tower.transform.position, tower.shootingRange, tower);
     }
 
     private void HandleTowerPositionClick(TowerPosition towerPosition)
@@ -58,6 +63,9 @@ public class GameController : Singleton<GameController>
         HideCurrentBuildMenu();
         curTowerPosition = towerPosition;
         towerPosition.ShowBuildMenu();
+        
+        // Ẩn tầm đánh khi click vào vị trí xây tháp
+        rangeIndicator.HideRangeIndicator();
     }
 
     private void HideCurrentUpgradeMenu()
@@ -67,6 +75,9 @@ public class GameController : Singleton<GameController>
             curTower.towerPosition.HideUpgradeMenu();
             curTower = null;
         }
+        
+        // Ẩn tầm đánh khi click vào vị trí xây tháp
+        rangeIndicator.HideRangeIndicator();
     }
 
     private void HideCurrentBuildMenu()
