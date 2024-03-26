@@ -92,7 +92,7 @@ public class BuildChoice : MonoBehaviour
                 curTower.curLevel++;
                 curLevel++;
                 GameController.Instance.curTower = null;
-                GameController.Instance.rangeIndicator.ChangeRangeIndicator(curTower.shootingRange);
+                GameController.Instance.rangeIndicator.ChangeIndicator(curTower.shootingRange);
                 EventDispatcher.Instance.PostEvent(EventID.On_Tower_Upgrade_Completed);
             }
             // Xây tháp mới

@@ -6918,6 +6918,7 @@ MonoBehaviour:
   canClickTower: 1
   canClickTowerPosition: 1
   rangeIndicator: {fileID: 1494606178}
+  spiritStoneIndicator: {fileID: 3742447807401964568, guid: 6ef83f50d1f202546955cdb295c2de60, type: 3}
 --- !u!4 &1052022244
 Transform:
   m_ObjectHideFlags: 0

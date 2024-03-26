@@ -6,7 +6,7 @@ public class AttackRangeIndicator : MonoBehaviour
     private GameObject rangeIndicatorObject;
     private SpriteRenderer rangeIndicatorRenderer;
 
-    public void ShowRangeIndicator(Vector3 position, float range, Tower tower)
+    public void ShowIndicator(Vector3 position, float range)
     {
         if (rangeIndicatorObject == null)
         {
@@ -22,7 +22,7 @@ public class AttackRangeIndicator : MonoBehaviour
         rangeIndicatorRenderer.size = new Vector2(range * 2, range * 2);
     }
 
-    public void HideRangeIndicator()
+    public void HideIndicator()
     {
         if (rangeIndicatorObject != null)
         {
@@ -30,7 +30,7 @@ public class AttackRangeIndicator : MonoBehaviour
         }
     }
 
-    public void ChangeRangeIndicator(float range)
+    public void ChangeIndicator(float range)
     {
         rangeIndicatorObject.SetActive(true);
         rangeIndicatorRenderer.size = new Vector2(range * 2, range * 2);

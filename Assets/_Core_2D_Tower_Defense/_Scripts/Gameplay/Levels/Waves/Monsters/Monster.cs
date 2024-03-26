@@ -77,6 +77,9 @@ public class Monster : MonoBehaviour
         {
             wave.listMonsters.Remove(this);
             wave.CheckIfAllEnermyDead();
+            var indicator = PoolingManager.Spawn(GameController.Instance.spiritStoneIndicator, 
+                transform.position, Quaternion.identity);
+            indicator.ChangeIndicator(spiritStoneAmount);
             EventDispatcher.Instance.PostEvent(EventID.On_Monster_Killed, spiritStoneAmount);
             Destroy(gameObject);
         }
